@@ -1,0 +1,37 @@
+version = '1.0.0-SNAPSHOT'
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+dependencies {
+	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.10.0'
+	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.10.0'
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.2'
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.2'
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.0.2'
+	compile group: 'org.junit.jupiter', name: 'junit-jupiter-migrationsupport', version: '5.0.2'
+	compile group: 'org.opentest4j', name: 'opentest4j', version: '1.0.0'
+    compile("org.apache.commons:commons-math3:3.6.1")
+    testCompile group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.0.2'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.0.2'
+    compile group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.0.2'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-console', version: '1.0.2'
+    compile group: 'org.junit.platform', name: 'junit-platform-gradle-plugin', version: '1.0.2'
+    compile group: 'org.junit.platform', name: 'junit-platform-suite-api', version: '1.0.2'
+    compile group: 'org.junit.platform', name: 'junit-platform-engine', version: '1.0.2'
+    testCompile group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '4.12.2'
+}
