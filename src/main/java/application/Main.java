@@ -15,23 +15,22 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/Sample.fxml"));
-	       
-	        Scene scene = new Scene(root, 634, 426);
-	        
-	        stage.setTitle("Language detector");
-	        stage.setScene(scene);
-	        stage.show();
-	        logger.info("creating language profiles...");
-	        LanguageBuilder.buildKnownLanguages();
-	        logger.info("application is up and running");
+			Parent root = FXMLLoader.load(getClass().getResource("/languagedetector-main.fxml"));
+			Scene scene = new Scene(root, 634, 426);
+			
+			stage.setTitle("Language detector");
+			stage.setScene(scene);
+			stage.show();
+			logger.info("creating language profiles...");
+			LanguageBuilder.buildKnownLanguages();
+			logger.info("application is up and running");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public static void main(String[] args) {
-    	logger.info("launching the application...");
+		logger.info("launching the application...");
 		launch(args);
 	}
 }

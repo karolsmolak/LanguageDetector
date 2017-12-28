@@ -33,7 +33,7 @@ public class Language {
 		return result;
 	}
 	
-	public void printNgram(){
+	public void printProfile(){
 		Iterator<Map.Entry<String, Integer>> it = languageProfile.getIterator();
 		while(it.hasNext()) {
 			Map.Entry<String, Integer> entry = it.next();

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class Profile {
 	private Map<String, Integer> ngramSet = new LinkedHashMap<>();
-	protected Map<String, Integer> ngramPosition = new LinkedHashMap<>();
+	private Map<String, Integer> ngramPosition = new LinkedHashMap<>();
 	
 	private String baseString;
 	private int maxLength;
@@ -31,13 +31,22 @@ public class Profile {
 		buildNgramSet();
 		buildNgramPositionMap();
 	}
-
-	private static List<Map.Entry<String, Integer>> sortByValue(Map<String, Integer> map) {
-	    return map.entrySet()
-	              .stream()
-	              .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
-	              .collect(Collectors.toList());
-	}
+	
+	private void buildNgramSet() {
+		for(int currentLength = 1 ; currentLength <= maxLength ; currentLength++) {
+			for(int i = 0 ; i < baseString.length() - currentLength + 1; i++){
+				if(currentLength != 1 || baseString.charAt(i) != ' ')
+				{
+					String substring = baseString.substring(i, i + currentLength);
+					if(ngramSet.get(substring) == null) {
+						ngramSet.put(substring, 1);
+					} else {
+						ngramSet.put(substring, ngramSet.get(substring) + 1);
+					}
+				}
+			}
+		}		
+	}	
 	
 	private void buildNgramPositionMap() {
 		List<Map.Entry<String, Integer>> ngramList = sortByValue(ngramSet);
@@ -54,20 +63,11 @@ public class Profile {
 			}
 		}
 	}
-
-	private void buildNgramSet() {
-		for(int currentLength = 1 ; currentLength <= maxLength ; currentLength++) {
-			for(int i = 0 ; i < baseString.length() - currentLength + 1; i++){
-				if(currentLength != 1 || baseString.charAt(i) != ' ')
-				{
-					String substring = baseString.substring(i, i + currentLength);
-					if(ngramSet.get(substring) == null) {
-						ngramSet.put(substring, 1);
-					} else {
-						ngramSet.put(substring, ngramSet.get(substring) + 1);
-					}
-				}
-			}
-		}		
+	
+	private static List<Map.Entry<String, Integer>> sortByValue(Map<String, Integer> map) {
+	    return map.entrySet()
+	              .stream()
+	              .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
+	              .collect(Collectors.toList());
 	}
 }
