@@ -6,14 +6,14 @@ import java.util.Map;
 public class Language {
 	private Profile languageProfile;
 	private String name;
-	
+
 	protected static int maxNgramLength = 5;
 	protected static int numberOfNgramsConsidered = 120;
-	
-	public Language(String name, String sampleFile){
-    	this.name = name;
-		String baseString  = Parser.getFormattedFile("udhr_txt/udhr_" + sampleFile + ".txt");
-    	languageProfile = new Profile(baseString, maxNgramLength);
+
+	public Language(String name, String sampleFile) {
+		this.name = name;
+		String baseString = Parser.getFormattedFile("udhr_txt/udhr_" + sampleFile + ".txt");
+		languageProfile = new Profile(baseString, maxNgramLength);
 	}
 	
 	public int calculateDistance(Profile textProfile) {

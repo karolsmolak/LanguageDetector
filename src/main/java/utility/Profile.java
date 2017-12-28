@@ -64,10 +64,8 @@ public class Profile {
 		}
 	}
 	
-	private static List<Map.Entry<String, Integer>> sortByValue(Map<String, Integer> map) {
-	    return map.entrySet()
-	              .stream()
-	              .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
-	              .collect(Collectors.toList());
+	private List<Map.Entry<String, Integer>> sortByValue(Map<String, Integer> map) {
+		return map.entrySet().stream().sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
+				.collect(Collectors.toList());
 	}
 }

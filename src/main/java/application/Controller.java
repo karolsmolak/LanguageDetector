@@ -21,9 +21,11 @@ public class Controller {
 	@FXML
 	public void handleButtonAction(ActionEvent event) {
 		Main.logger.info("Started detection of the language...");
+		
 		List<Match> bestMatches = LanguageRecognizer.recognize(textArea.getText());
 		transformAccuraciesToPercentages(bestMatches);
 		String output = prepareOutput(bestMatches);
+		
 		Main.logger.info("language detected: " + bestMatches.get(0).getMatchedLanguage().getName());
 		actiontarget.getChildren().clear();
 		Text result = new Text("Text language possibilites:\n\n" + output);

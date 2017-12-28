@@ -25,12 +25,12 @@ public class LanguageRecognizer {
 			for(Match match : bestMatches) {
 				if(distance > match.getMatchAccuracy()) {
 					closerLanguages++;
-				}				
+				}
 			}
 			
 			if(closerLanguages < numberOfMatchedLanguages) {
 				if(bestMatches.size() == numberOfMatchedLanguages) {
-					bestMatches.remove(closerLanguages);
+					bestMatches.remove(bestMatches.get(bestMatches.size() - 1));
 				}
 				bestMatches.add(closerLanguages, new Match(language, distance));
 			}
