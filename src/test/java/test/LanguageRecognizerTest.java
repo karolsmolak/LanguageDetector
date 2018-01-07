@@ -35,6 +35,24 @@ public class LanguageRecognizerTest {
 				"La danza o el baile es la ejecución de movimientos acompasados con el cuerpo, los brazos y las piernas. ").get(0).getMatchedLanguage().getName());
 		assertEquals("Latin", LanguageRecognizer.recognize(
 				"Planeta extrasolaris repertus est, stellam HD 76920 constellationis Volantis circumiens, cuius orbita omnium excentrissima sit, apastro fere 2 unitatibus astronomicis a stella distante, periastro non pluribus quam 4 diametris stellae ipsius").get(0).getMatchedLanguage().getName());
+		assertEquals("Turkish", LanguageRecognizer.recognize(
+				"Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.").get(0).getMatchedLanguage().getName());
+		assertEquals("Ukrainian", LanguageRecognizer.recognize(
+				"Lorem Ipsum - це текст-\"риба\", що використовується в друкарстві та дизайні. ").get(0).getMatchedLanguage().getName());
+		assertEquals("Macedonian", LanguageRecognizer.recognize(
+				"Lorem Ipsum е едноставен модел на текст кој се користел во печатарската индустрија.").get(0).getMatchedLanguage().getName());
+		assertEquals("Latvian", LanguageRecognizer.recognize(
+				"Lorem Ipsum – tas ir teksta salikums, kuru izmanto poligrāfijā un maketēšanas darbos.").get(0).getMatchedLanguage().getName());
+		assertEquals("Hungarian", LanguageRecognizer.recognize(
+				" Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként ").get(0).getMatchedLanguage().getName());
+		assertEquals("Lithuanian", LanguageRecognizer.recognize(
+				"Lorem ipsum - tai fiktyvus tekstas naudojamas spaudos ir grafinio dizaino pasaulyje jau nuo XVI a.").get(0).getMatchedLanguage().getName());
+		assertEquals("Russian", LanguageRecognizer.recognize(
+				"Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне.").get(0).getMatchedLanguage().getName());
+		assertEquals("Albanian, Tosk", LanguageRecognizer.recognize(
+				"Lorem Ipsum është një tekst shabllon i industrisë së printimit dhe shtypshkronjave.").get(0).getMatchedLanguage().getName());
+		assertEquals("Vietnamese", LanguageRecognizer.recognize(
+				"Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn").get(0).getMatchedLanguage().getName());
 	}
 
 }

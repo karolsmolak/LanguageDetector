@@ -6,11 +6,6 @@ import org.junit.Test;
 
 import utility.Profile;
 public class ProfileTest {
-
-	@Test
-	public void testIterator() {
-		//TODO
-	}
 	
 	@Test
 	public void testGetPosition() {
