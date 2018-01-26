@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import utility.Profile;
+import services.Profile;
 public class ProfileTest {
 	
 	@Test
 	public void testGetPosition() {
-		Profile testProfile = new Profile("abab", 4);
+		Profile testProfile = new Profile("abab", null);
 		assertEquals(1, testProfile.getPosition("a"));
 		assertEquals(1, testProfile.getPosition("b"));
 		assertEquals(1, testProfile.getPosition("ab"));

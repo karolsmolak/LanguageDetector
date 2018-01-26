@@ -34,4 +34,5 @@ dependencies {
 	compile group: 'org.junit.platform', name: 'junit-platform-suite-api', version: '1.0.2'
 	compile group: 'org.junit.platform', name: 'junit-platform-engine', version: '1.0.2'
 	testCompile group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '4.12.2'
+	compile group: 'org.springframework', name: 'spring-context', version: '5.0.3.RELEASE'
 }

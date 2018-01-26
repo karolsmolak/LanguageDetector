@@ -1,15 +1,12 @@
-package utility;
+package repository;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,26 +17,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class Parser {
-
-	private static String resourcePath = "src/main/resources/";
-
-	public static List<String> readFileLineByLine(String fileName) {
-		List<String> list = new ArrayList<>();
-
-		try (BufferedReader br = Files.newBufferedReader(Paths.get(resourcePath + fileName))) {
-			list = br.lines().collect(Collectors.toList());
-		} catch (IOException io) {
-			io.printStackTrace();
-		}
-
-		return list;
-	}
-
-	public static String getFormattedFile(String fileName) {
+	
+	public String getFormattedFile(String path) {
 		String text = new String();
 
 		try {
-			text = readFiletoString(fileName, Charset.forName("UTF-8"));
+			text = readFiletoString(path, Charset.forName("UTF-8"));
 		} catch (IOException io) {
 			io.printStackTrace();
 		}
@@ -49,12 +32,12 @@ public class Parser {
 		return text;
 	}
 
-	public static String readFiletoString(String path, Charset encoding) throws IOException {
-		byte[] encoded = Files.readAllBytes(Paths.get(resourcePath + path));
+	public String readFiletoString(String path, Charset encoding) throws IOException {
+		byte[] encoded = Files.readAllBytes(Paths.get(path));
 		return new String(encoded, encoding);
 	}
 
-	public static String formatString(String text) {
+	public String formatString(String text) {
 		text = text.toLowerCase();
 		text = text.replaceAll("\n|\t", " ");
 		text = text.replaceAll(" +", " ");
@@ -65,14 +48,14 @@ public class Parser {
 		return text;
 	}
 
-	public static List<Element> parseXML(String fileName) {
+	public List<Element> parseXML(String path, String tagName) {
 		try {
-			File inputFile = new File(resourcePath + fileName);
+			File inputFile = new File(path);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
 			doc.getDocumentElement().normalize();
-			NodeList nList = doc.getElementsByTagName("udhr");
+			NodeList nList = doc.getElementsByTagName(tagName);
 			List<Element> result = new LinkedList<>();
 			for (int temp = 0; temp < nList.getLength(); temp++) {
 				Node nNode = nList.item(temp);
@@ -88,8 +71,8 @@ public class Parser {
 		}
 	}
 
-	public static boolean existsFile(String fileName) {
-		File f = new File(resourcePath + fileName);
+	public boolean existsFile(String path) {
+		File f = new File(path);
 		return f.exists();
 	}
 }
