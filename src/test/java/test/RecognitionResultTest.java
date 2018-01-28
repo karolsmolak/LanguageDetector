@@ -1,5 +1,23 @@
 package test;
 
-public class RecognitionResultTest {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import config.Config;
+import services.IRecognitionResult;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes=Config.class)
+public class RecognitionResultTest {
+	@Autowired
+	private IRecognitionResult result;
+	
+	@Test
+	public void getWinnerTest(){
+		
+	}
+	
 }

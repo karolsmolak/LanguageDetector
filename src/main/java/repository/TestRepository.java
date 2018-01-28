@@ -3,35 +3,40 @@ package repository;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import services.Profile;
 
-@Component
-@Qualifier("testsRepository")
+@Repository
+@Qualifier("testRepository")
 public class TestRepository implements IRepository {
 	
-	List<Profile> knownProfiles = new LinkedList<>();
+	@Autowired
+	private ApplicationContext context;
 	
-	public TestRepository() {
-		addProfile("Polish", "wlazł kotek na pomarańczowy płotek");
-		addProfile("English", "I have a web application whose actions are each represented in an action class");
-	}
+	private List<Profile> knownProfiles;
 	
 	@Override
 	public List<Profile> getKnownProfiles() {
+		if(knownProfiles == null) {
+			knownProfiles = new LinkedList<>();
+			addProfile("wlazł kotek na pomarańczowy płotek", "Polish");
+			addProfile("I have a web application whose actions are each represented in an action class", "English");
+			
+		}
 		return knownProfiles;
 	}
 
 	@Override
 	public void addProfile(String baseString, String name) {
-		knownProfiles.add(new Profile(baseString, name));
+		knownProfiles.add(context.getBean(Profile.class, baseString, name));
 	}
 
 	@Override
 	public void removeProfile(Profile profile) {
-		// TODO Auto-generated method stub
 		
 	}
 

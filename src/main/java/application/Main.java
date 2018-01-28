@@ -14,27 +14,31 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	public static Logger logger = LogManager.getLogger(Main.class);
 	
+	private static AnnotationConfigApplicationContext context = 
+			new AnnotationConfigApplicationContext(Config.class);
+	
+	private static Parent root;
+
 	@Override
-	public void start(Stage stage) {
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/languagedetector-main.fxml"));
-			Scene scene = new Scene(root, 634, 426);
-			
-			stage.setTitle("Language detector");
-			stage.setScene(scene);
-			stage.show();
-			
-			logger.info("creating language profiles...");
-			logger.info("application is up and running");
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	public void start(Stage stage) throws Exception{
+		Scene scene = new Scene(root, 634, 426);
+		
+		stage.setTitle("Language detector");
+		stage.setScene(scene);
+		stage.show();
+		
+		logger.info("application is up and running");
+	}
+	
+	@Override
+	public void init() throws Exception {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/languagedetector-main.fxml"));
+		fxmlLoader.setControllerFactory(context::getBean);
+		root = fxmlLoader.load();
 	}
 	
 	public static void main(String[] args) {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 		logger.info("launching the application...");
 		launch(args);
-		context.close();
 	}
 }

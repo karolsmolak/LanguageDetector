@@ -3,24 +3,32 @@ package services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
 
 import repository.IRepository;
 
-@Component
+@Service
 public class ProfileRecognizer implements IProfileRecognizer {
 
 	@Autowired
-	IRepository repository;
+	private ApplicationContext context;
+	
+	@Autowired
+	private IRepository repository;
 
+	@Autowired
+	private IRecognitionResult result;
+	
 	@Override
 	public IRecognitionResult recognize(String text) {
-		Profile textProfile = new Profile(text, null);
-		return computeDistancesToknownProfiles(textProfile);
+		Profile textProfile = context.getBean(Profile.class, text, null);
+		return matchToKnownProfiles(textProfile);
 	}
 	
-	private IRecognitionResult computeDistancesToknownProfiles(Profile unknownProfile) {
-		IRecognitionResult result = new RecognitionResult();
+	@Override
+	public IRecognitionResult matchToKnownProfiles(Profile unknownProfile) {
+		result.clear();
 		
 		List<Profile> knownProfiles = repository.getKnownProfiles();
 		

@@ -4,11 +4,17 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import config.Config;
 import repository.Parser;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes=Config.class)
 public class ParserTest {
 
 	private static String testFilePath = "testFile";

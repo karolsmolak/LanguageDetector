@@ -1,7 +1,7 @@
 package control;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import application.Main;
 import javafx.event.ActionEvent;
@@ -12,10 +12,12 @@ import javafx.scene.text.TextFlow;
 import services.IProfileRecognizer;
 import services.IRecognitionResult;
 
+@org.springframework.stereotype.Controller
+@Qualifier("control.Controller")
 public class Controller {
 	
 	@Autowired
-	IProfileRecognizer recognizer;
+	private IProfileRecognizer recognizer;
 	
 	@FXML
 	private TextFlow actiontarget;
@@ -29,6 +31,7 @@ public class Controller {
 		IRecognitionResult result = recognizer.recognize(textArea.getText());
 		
 		Main.logger.info("language detected: " + result.getWinner().getName());
+		
 		actiontarget.getChildren().clear();
 		Text output = new Text("Text language possibilites:\n\n" + result.getOutput());
 		actiontarget.getChildren().add(output);

@@ -4,11 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RecognitionResult implements IRecognitionResult {
-	private static final int resultSize = 15;
+	
+	@Value("${numberOfResultsViewed}")
+	private int resultSize;
 	
 	private List<Match> matches = new ArrayList<>();
+	
+	public void clear() {
+		matches.clear();
+	}
 	
 	public void add(Profile profile, int distance) {
 		matches.add(new Match(profile, distance));

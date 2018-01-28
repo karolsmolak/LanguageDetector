@@ -6,25 +6,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Profile {
-	private static final int maxLength = 5;
-	private static final int relevantNgrams = 500;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
+@Service
+@Scope("prototype")
+public class Profile implements IProfile {
 	
-	private Map<String, Integer> ngramSet = new LinkedHashMap<>();
-	private Map<String, Integer> ngramPosition = new LinkedHashMap<>();
+	@Value("${maxNgramLength}")
+	private int maxLength;
+	
+	@Value("${numberOfNgramsConsidered}") 
+	private int relevantNgrams;
+	
+	private Map<String, Integer> ngramSet;
+	private Map<String, Integer> ngramPosition;
 	
 	private String baseString;
 	private String name;
-	
+
 	public Profile(String baseString, String name) {
 		this.baseString = baseString;
 		this.name = name;
-		buildNgramSet();
-		buildNgramPositionMap();
-	}
-	
-	public String getBaseString() {
-		return baseString;
 	}
 	
 	public String getName() {
@@ -32,10 +36,17 @@ public class Profile {
 	}
 	
 	public int getSize() {
+		if(ngramPosition == null) {
+			build();
+		}
 		return ngramPosition.size();
 	}
 	
 	public int calculateDistance(Profile textProfile) {
+		if(ngramPosition == null) {
+			build();
+		}
+		
 		int result = 0;
 		
 		for(Map.Entry<String, Integer> entry : ngramPosition.entrySet()) {
@@ -53,13 +64,23 @@ public class Profile {
 	}
 	
 	public int getPosition(String ngram) {
+		if(ngramPosition == null) {
+			build();
+		}
+		
 		if(!ngramPosition.containsKey(ngram)) {
 			return -1;
 		}
 		return ngramPosition.get(ngram);
 	}
 	
+	public void build() {
+		buildNgramSet();
+		buildNgramPositionMap();
+	}
+	
 	private void buildNgramSet() {
+		ngramSet = new LinkedHashMap<>();
 		for(int currentLength = 1 ; currentLength <= maxLength ; currentLength++) {
 			for(int i = 0 ; i < baseString.length() - currentLength + 1; i++){
 				if(currentLength != 1 || baseString.charAt(i) != ' ')
@@ -76,10 +97,11 @@ public class Profile {
 	}	
 	
 	private void buildNgramPositionMap() {
+		ngramPosition = new LinkedHashMap<>();
 		List<Map.Entry<String, Integer>> ngramList = sortByValue(ngramSet);
 		
 		if(ngramList.size() > relevantNgrams) {
-			ngramList = ngramList.subList(0, relevantNgrams - 1);
+			ngramList = ngramList.subList(0, relevantNgrams);
 		}
 		
 		int maxPosition = 0;
