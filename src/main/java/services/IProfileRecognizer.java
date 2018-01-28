@@ -1,6 +1,6 @@
 package services;
 
 public interface IProfileRecognizer {
-	public IRecognitionResult recognize(String text);
-	public IRecognitionResult matchToKnownProfiles(Profile profile);
+	IRecognitionResult recognize(String text);
+	IRecognitionResult matchToKnownProfiles(Profile profile);
 }

@@ -1,9 +1,9 @@
 package services;
 
 public interface IProfile {
-	public String getName();
-	public int getSize();
-	public int calculateDistance(Profile other);
-	public int getPosition(String ngram);
-	public void build();
+	String getName();
+	int getSize();
+	int calculateDistance(Profile other);
+	int getPosition(String ngram);
+	void build();
 }

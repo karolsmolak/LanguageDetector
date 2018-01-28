@@ -20,7 +20,7 @@ public class Main extends Application {
 	private static Parent root;
 
 	@Override
-	public void start(Stage stage) throws Exception{
+	public void start(Stage stage) {
 		Scene scene = new Scene(root, 634, 426);
 		
 		stage.setTitle("Language detector");

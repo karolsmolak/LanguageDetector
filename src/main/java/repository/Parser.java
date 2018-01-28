@@ -19,17 +19,14 @@ import org.w3c.dom.NodeList;
 public class Parser {
 	
 	public String getFormattedFile(String path) {
-		String text = new String();
-
 		try {
-			text = readFiletoString(path, Charset.forName("UTF-8"));
+			String text = readFiletoString(path, Charset.forName("UTF-8"));
+			text = formatString(text);
+			return text;
 		} catch (IOException io) {
 			io.printStackTrace();
+			return null;
 		}
-
-		text = formatString(text);
-
-		return text;
 	}
 
 	public String readFiletoString(String path, Charset encoding) throws IOException {

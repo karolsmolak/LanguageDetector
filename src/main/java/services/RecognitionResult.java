@@ -25,9 +25,6 @@ public class RecognitionResult implements IRecognitionResult {
 	
 	public void commit() {
 		matches.sort((Match m1, Match m2) -> Double.compare(m1.getValue(), m2.getValue()));
-		if(matches.size() > resultSize) {
-			matches = matches.subList(0, resultSize - 1);
-		}
 		transformProfileDistancesToProbabilities();
 	}
 	
@@ -36,14 +33,18 @@ public class RecognitionResult implements IRecognitionResult {
 	}
 	
 	public String getOutput() {
-		String output = new String();
-		for (Match match : matches) {
-			output += match.getMatchedProfile().getName() + ": " + round(match.getValue(), 2) + "%\n";
+		StringBuilder output = new StringBuilder();
+		List<Match> trimmedList = matches = matches.subList(0, resultSize);
+		for (Match match : trimmedList) {
+			output.append(match.getMatchedProfile().getName())
+					.append(": ")
+					.append(round(match.getValue(), 2))
+					.append("%\n");
 		}
-		return output;
+		return output.toString();
 	}
 	
-	public void transformProfileDistancesToProbabilities() {
+	private void transformProfileDistancesToProbabilities() {
 		normalize();
 		calculateProbabilites();
 		scaleProbabilitiesToPercentages();

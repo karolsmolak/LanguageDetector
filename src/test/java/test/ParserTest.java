@@ -17,8 +17,8 @@ import static org.junit.Assert.assertEquals;
 @ContextConfiguration(classes=Config.class)
 public class ParserTest {
 
-	private static String testFilePath = "testFile";
-	private static String testFileContent = "first\t sentence.\nsecond  sentence\nthird sentence";
+	private String testFilePath = "testFile";
+	private String testFileContent = "first\t sentence.\nsecond  sentence\nthird sentence";
 	
 	private Parser testParser = new Parser();
 	

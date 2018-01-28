@@ -12,12 +12,13 @@ import services.IRecognitionResult;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=Config.class)
 public class RecognitionResultTest {
+
 	@Autowired
 	private IRecognitionResult result;
-	
+
 	@Test
 	public void getWinnerTest(){
-		
+
 	}
 	
 }
