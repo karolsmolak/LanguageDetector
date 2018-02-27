@@ -1,4 +1,4 @@
-package services;
+package detector.services;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -6,18 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
-
-@Service
-@Scope("prototype")
-public class Profile implements IProfile {
-	
-	@Value("${maxNgramLength}")
+public class Profile {
 	private int maxLength;
-	
-	@Value("${numberOfNgramsConsidered}") 
 	private int relevantNgrams;
 	
 	private Map<String, Integer> ngramSet;
@@ -26,9 +16,12 @@ public class Profile implements IProfile {
 	private String baseString;
 	private String name;
 
-	public Profile(String baseString, String name) {
+	public Profile(String baseString, String name, int maxLength, int relevantNgrams) {
 		this.baseString = baseString;
 		this.name = name;
+		this.maxLength = maxLength;
+		this.relevantNgrams = relevantNgrams;
+		build();
 	}
 	
 	public String getName() {
@@ -36,17 +29,10 @@ public class Profile implements IProfile {
 	}
 	
 	public int getSize() {
-		if(ngramPosition == null) {
-			build();
-		}
 		return ngramPosition.size();
 	}
 	
 	public int calculateDistance(Profile textProfile) {
-		if(ngramPosition == null) {
-			build();
-		}
-		
 		int result = 0;
 		
 		for(Map.Entry<String, Integer> entry : ngramPosition.entrySet()) {
@@ -64,10 +50,6 @@ public class Profile implements IProfile {
 	}
 	
 	public int getPosition(String ngram) {
-		if(ngramPosition == null) {
-			build();
-		}
-		
 		if(!ngramPosition.containsKey(ngram)) {
 			return -1;
 		}
@@ -86,11 +68,7 @@ public class Profile implements IProfile {
 				if(currentLength != 1 || baseString.charAt(i) != ' ')
 				{
 					String substring = baseString.substring(i, i + currentLength);
-					if(ngramSet.get(substring) == null) {
-						ngramSet.put(substring, 1);
-					} else {
-						ngramSet.put(substring, ngramSet.get(substring) + 1);
-					}
+					ngramSet.merge(substring, 1, (a, b) -> a + b);
 				}
 			}
 		}		

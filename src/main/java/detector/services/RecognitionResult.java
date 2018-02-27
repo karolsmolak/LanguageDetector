@@ -1,6 +1,7 @@
-package services;
+package detector.services;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
@@ -24,7 +25,7 @@ public class RecognitionResult implements IRecognitionResult {
 	}
 	
 	public void commit() {
-		matches.sort((Match m1, Match m2) -> Double.compare(m1.getValue(), m2.getValue()));
+		matches.sort(Comparator.comparingDouble(Match::getValue));
 		transformProfileDistancesToProbabilities();
 	}
 	

@@ -1,4 +1,4 @@
-package services;
+package detector.services;
 
 public class Match {
 	private Profile matchedProfile;
